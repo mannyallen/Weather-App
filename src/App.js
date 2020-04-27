@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import Moment from 'react-moment';
 const api = {
   key: "0cf7838ca23d9afb24e138de0dce0293",
   base: "https://api.openweathermap.org/data/2.5/",
@@ -10,7 +11,7 @@ function App() {
 
   const search = evt => {
     if (evt.key === 'Enter'){
-      fetch(`${api.base}weather?q=${query}&units=imperial&APPID=${api.key}`)
+      fetch(`${api.base}weather?q=${query},US&units=imperial&APPID=${api.key}`)
       .then(res => res.json())
       .then(result => {
         setWeather(result)
@@ -34,6 +35,9 @@ function App() {
         </div>
         {(typeof weather.main != "undefined") ? (
         <div>
+          <div className="time">
+            <Moment format="Do MMMM YYYY - HH:mm">{utcDate}</Moment>
+          </div>
           <div className="location-parent">
             <div className="location">{weather.name}, {weather.sys.country}</div>
             <div className="date"></div>
